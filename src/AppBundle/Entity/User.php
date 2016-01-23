@@ -4,6 +4,7 @@
  */
 
 namespace AppBundle\Entity;
+
 use Symfony\Component\BrowserKit\Request;
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -12,21 +13,21 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @Entity(repositoryClass="Followuply\Entity\UserRepository")
- * @Table(name="user")
+ * @ORM\Entity(repositoryClass="Followuply\Entity\UserRepository")
+ * @ORM\Table(name="user")
  */
 class User implements UserInterface
 {
-    /** @Id @Column(type="integer") @GeneratedValue **/
+    /** @ORM\Id @ORM\Column(type="integer") @ORM\GeneratedValue **/
     protected $id;
 
-    /** @Column(type="string") **/
+    /** @ORM\Column(type="string") **/
     protected $email;
 
-    /** @Column(type="string") **/
+    /** @ORM\Column(type="string") **/
     protected $password;
 
-    /** @Column(type="datetime",name="dt_added") **/
+    /** @ORM\Column(type="datetime",name="dt_added") **/
     protected $dtAdded;
 
     public function __construct()

@@ -2,30 +2,31 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @Entity @Table(name="page_view")
+ * @ORM\Entity @ORM\Table(name="page_view")
  */
 class PageView
 {
-    /** @Id @Column(type="integer") @GeneratedValue **/
+    /** @ORM\Id @ORM\Column(type="integer") @ORM\GeneratedValue **/
     protected $id;
 
-    /** @Column(type="string") **/
+    /** @ORM\Column(type="string") **/
     protected $url;
 
-    /** @Column(type="datetime",name="dt_added") **/
+    /** @ORM\Column(type="datetime",name="dt_added") **/
     protected $dtAdded;
 
-    /** @var @Column(type="string", length=500) */
+    /** @var @ORM\Column(type="string", length=500) */
     protected $email;
 
-    /** @var @Column(type="string",name="visitor_uid") */
+    /** @var @ORM\Column(type="string",name="visitor_uid") */
     protected $visitorUid;
 
-    /** @var @Column(type="boolean") */
+    /** @var @ORM\Column(type="boolean") */
     protected $isProcessed;
 
     public function __construct()

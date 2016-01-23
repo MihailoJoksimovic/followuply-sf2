@@ -2,29 +2,29 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @Entity @Table(name="scenario")
- * @UniqueEntity("appUid")
+ * @ORM\Entity @ORM\Table(name="scenario")
  */
 class Scenario
 {
-    /** @Id @Column(type="integer") @GeneratedValue **/
+    /** @ORM\Id @ORM\Column(type="integer") @ORM\GeneratedValue **/
     protected $id;
 
-    /** @Column(type="string",name="app_uid", unique=true) **/
+    /** @ORM\Column(type="string",name="app_uid", unique=true) **/
     protected $appUid;
 
-    /** @Column(type="smallint") */
+    /** @ORM\Column(type="smallint") */
     protected $timeframe;
 
-    /** @OneToMany(targetEntity="Route", mappedBy="scenario") */
+    /** @ORM\OneToMany(targetEntity="Route", mappedBy="scenario") */
     protected $routes;
 
-    /** @Column(type="datetime",name="dt_added") **/
+    /** @ORM\Column(type="datetime",name="dt_added") **/
     protected $dtAdded;
 
     public function __construct()

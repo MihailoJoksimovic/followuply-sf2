@@ -2,12 +2,13 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
- * @Entity @Table(name="route")
+ * @ORM\Entity @ORM\Table(name="route")
  */
 class Route
 {
@@ -15,22 +16,22 @@ class Route
     const ROUTE_TYPE_EQUALS      = 2;
     const ROUTE_TYPE_REGEX       = 3;
 
-    /** @Id @Column(type="integer") @GeneratedValue **/
+    /** @ORM\Id @ORM\Column(type="integer") @ORM\GeneratedValue **/
     protected $id;
 
-    /** @Column(type="string",name="uri_pattern") **/
+    /** @ORM\Column(type="string",name="uri_pattern") **/
     protected $uriPattern;
 
-    /** @Column(type="smallint",name="pattern_type") */
+    /** @ORM\Column(type="smallint",name="pattern_type") */
     protected $patternType;
 
-    /** @Column(type="smallint") */
+    /** @ORM\Column(type="smallint") */
     protected $position;
 
-    /** @Column(type="datetime",name="dt_added") **/
+    /** @ORM\Column(type="datetime",name="dt_added") **/
     protected $dtAdded;
 
-    /**  @ManyToOne(targetEntity="Scenario", inversedBy="routes") */
+    /** @ORM\ManyToOne(targetEntity="Scenario", inversedBy="routes") */
     protected $scenario;
 
     public function __construct()
