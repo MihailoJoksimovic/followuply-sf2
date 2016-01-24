@@ -31,7 +31,7 @@ class Event
 
     public static function fromJsonString($jsonString)
     {
-        $eventData = json_decode($jsonString, true);
+        $eventData = json_decode($jsonString);
         $event = new self();
 
         $event->visitorUid = $eventData->visitorUid;

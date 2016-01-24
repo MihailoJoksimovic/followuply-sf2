@@ -58,6 +58,10 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
 
+# redis: needs extension to load it 
+#     host: '127.0.0.1'
+#     port: 6379
+
 # Swiftmailer Configuration
 swiftmailer:
     transport: "%mailer_transport%"
@@ -71,3 +75,32 @@ fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
     user_class: AppBundle\Entity\User
+
+old_sound_rabbit_mq:
+    connections:
+        default:
+            host:     'localhost'
+            port:     5672
+            user:     'guest'
+            password: 'guest'
+            vhost:    '/'
+            lazy:     false
+            connection_timeout: 3
+            read_write_timeout: 3
+
+            # requires php-amqplib v2.4.1+ and PHP5.4+
+            keepalive: false
+
+            # requires php-amqplib v2.4.1+
+            heartbeat: 20
+    producers:
+        event:
+            connection:       default
+            exchange_options: {name: 'event', type: direct}
+            queue_options:    {name: 'event', durable: false, auto_delete: false}
+    consumers:
+        event:
+            connection:       default
+            exchange_options: {name: 'event', type: direct}
+            queue_options:    {name: 'event', durable: false, auto_delete: false}
+            callback:         worker.event.matcher
