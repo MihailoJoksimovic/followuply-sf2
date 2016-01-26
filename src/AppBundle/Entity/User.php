@@ -39,20 +39,16 @@ class User extends BaseUser
         return $this->dtAdded;
     }
 
-    /**
-     * Returns the username used to authenticate the user.
-     *
-     * @return string The username
-     */
-    public function getUsername()
+    public function setEmail($email)
     {
-        return $this->email;
+        parent::setUsername($email);
+        return parent::setEmail($email);
     }
 
-    static public function loadValidatorMetadata(ClassMetadata $metadata)
+    public function setEmailCanonical($emailCanonical)
     {
-        $metadata->addPropertyConstraint('email', new Assert\Email());
-        $metadata->addPropertyConstraint('password', new Assert\Length(array('min' => 3)));
+        parent::setUsernameCanonical($emailCanonical);
+        return parent::setEmailCanonical($emailCanonical);
     }
 
 }
