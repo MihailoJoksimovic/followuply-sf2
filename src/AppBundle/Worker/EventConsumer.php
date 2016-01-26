@@ -6,21 +6,24 @@ use AppBundle\Model\Event;
 use OldSound\RabbitMqBundle\RabbitMq\ConsumerInterface;
 use PhpAmqpLib\Message\AMQPMessage;
 
-class Matcher implements ConsumerInterface
+class EventConsumer implements ConsumerInterface
 {
-    public function execute(AMQPMessage $msg)
+    protected $routeMatcher;
+
+    public function execute(AMQPMessage $message)
     {
-        $event = Event::fromJsonString($msg->body);
-        die(var_dump($event));
+        $event = unserialize($message->body);
 
-        $this->logToPersistentStorage($event);
-
-        if (!$this->routeMatches) {
-            // discard this
+        if (!$event instanceof Event) {
             return;
         }
 
-        
+        $this->logToPersistentStorage($event);
+
+        if (!$this->routeMatches()) {
+            // discard this
+            return;
+        }
     }
 
     protected function logToPersistentStorage(Event $event)

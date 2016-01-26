@@ -46,7 +46,7 @@ doctrine:
         user:     "%database_user%"
         password: "%database_password%"
         charset:  UTF8
-        server_version: 5.5
+        server_version: 5.
         # if using pdo_sqlite as your database driver:
         #   1. add the path in parameters.yml
         #     e.g. database_path: "%kernel.root_dir%/data/data.db3"
@@ -104,4 +104,4 @@ old_sound_rabbit_mq:
             connection:       default
             exchange_options: {name: 'event', type: direct}
             queue_options:    {name: 'event', durable: false, auto_delete: false}
-            callback:         worker.event.matcher
+            callback:         worker.event.consumer
