@@ -16,15 +16,21 @@ class Event
 
     public $uri;
 
-    private function __construct() {}
+    public $email;
+
+    private function __construct()
+    {
+        $this->timestamp = time();
+    }
 
     public static function fromRequest(Request $request)
     {
         $event = new self();
 
-        $event->visitorUid = $request->request->get('visitor_uid');
-        $event->appId = $request->request->get('app_id');
-        $event->uri = $request->request->get('uri');
+        $event->visitorUid = $request->attributes->get('visitorUid');
+        $event->appId = $request->attributes->get('appId');
+        $event->uri = urldecode($request->attributes->get('uri'));
+        $event->email = urldecode($request->attributes->get('email'));
 
         return $event;
     }
@@ -37,6 +43,7 @@ class Event
         $event->visitorUid = $eventData->visitorUid;
         $event->appId = $eventData->appId;
         $event->uri = $eventData->uri;
+        $event->email = $eventData->email;
 
         return $event;
     }

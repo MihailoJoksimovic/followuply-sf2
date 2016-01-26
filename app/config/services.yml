@@ -4,8 +4,12 @@ parameters:
 #    parameter_name: value
 
 services:
-   worker.event.matcher:
-       class: AppBundle\Worker\Matcher
+   worker.event.consumer:
+       class: AppBundle\Worker\EventConsumer
+
+   matcher.route:
+       class: AppBundle\Matcher\Route
+       arguments: ['@repository.scenario']
 
    redis.client:
        class: Redis

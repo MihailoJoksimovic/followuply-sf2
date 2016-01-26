@@ -48,6 +48,7 @@ doctrine:
         user:     "%database_user%"
         password: "%database_password%"
         charset:  UTF8
+        server_version: 5.
         # if using pdo_sqlite as your database driver:
         #   1. add the path in parameters.yml
         #     e.g. database_path: "%kernel.root_dir%/data/data.db3"
@@ -60,7 +61,7 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
 
-# redis: needs extension to load it 
+# redis: needs extension to load it
 #     host: '127.0.0.1'
 #     port: 6379
 
@@ -108,4 +109,4 @@ old_sound_rabbit_mq:
             connection:       default
             exchange_options: {name: 'event', type: direct}
             queue_options:    {name: 'event', durable: false, auto_delete: false}
-            callback:         worker.event.matcher
+            callback:         worker.event.consumer
