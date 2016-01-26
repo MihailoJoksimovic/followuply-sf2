@@ -18,7 +18,10 @@ class Event
 
     public $email;
 
-    private function __construct() {}
+    private function __construct()
+    {
+        $this->timestamp = time();
+    }
 
     public static function fromRequest(Request $request)
     {
@@ -26,8 +29,8 @@ class Event
 
         $event->visitorUid = $request->attributes->get('visitorUid');
         $event->appId = $request->attributes->get('appId');
-        $event->uri = $request->attributes->get('uri');
-        $event->email = $request->attributes->get('email');
+        $event->uri = urldecode($request->attributes->get('uri'));
+        $event->email = urldecode($request->attributes->get('email'));
 
         return $event;
     }
