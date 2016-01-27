@@ -8,22 +8,16 @@ use Symfony\Component\HttpFoundation\Request;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 
+/**
+ * @Route("/dashboard", name="dashboard")
+ */
 class DashboardController extends Controller
 {
     /**
-     * @Route("/dashboard", name="dashboard")
+     * @Route("/")
      */
     public function indexAction(Request $request)
     {
         return $this->render('AppBundle:Dashboard:index.html.twig');
-    }
-
-
-    /**
-     * @Route("/receive", name="test")
-     */
-    public function receiveAction(Request $request)
-    {
-        die('x');
     }
 }
