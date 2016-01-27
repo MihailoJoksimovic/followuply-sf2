@@ -15,7 +15,7 @@ class DashboardController extends Controller
      */
     public function indexAction(Request $request)
     {
-        die("Welcome to your Dashboard!");
+        return $this->render('AppBundle:Dashboard:index.html.twig');
     }
 
 
