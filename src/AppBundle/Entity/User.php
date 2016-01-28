@@ -25,6 +25,9 @@ class User extends BaseUser
     /** @ORM\Column(type="datetime",name="dt_added") **/
     protected $dtAdded;
 
+    /** @ORM\Column(type="string") */
+    protected $appUid;
+
     public function __construct()
     {
         parent::__construct();
@@ -49,6 +52,22 @@ class User extends BaseUser
     {
         parent::setUsernameCanonical($emailCanonical);
         return parent::setEmailCanonical($emailCanonical);
+    }
+
+    /**
+     * @param mixed $appUid
+     */
+    public function setAppUid($appUid)
+    {
+        $this->appUid = $appUid;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAppUid()
+    {
+        return $this->appUid;
     }
 
 }

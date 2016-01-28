@@ -23,6 +23,9 @@ services:
 
    app.registration_success:
        class: AppBundle\EventListener\RegistrationSuccessEventListener
-       arguments: [@router]
+       arguments: [@router, @util.app_uid_generator]
        tags:
            - { name: kernel.event_subscriber }
+
+   util.app_uid_generator:
+       class: AppBundle\Util\AppUidGenerator

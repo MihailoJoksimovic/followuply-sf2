@@ -5,6 +5,7 @@
 
 namespace AppBundle\EventListener;
 
+use AppBundle\Util\AppUidGeneratorInterface;
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Event\FormEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -19,9 +20,15 @@ class RegistrationSuccessEventListener implements EventSubscriberInterface
 {
     private $router;
 
-    public function __construct(UrlGeneratorInterface $router)
+    /**
+     * @var AppUidGeneratorInterface
+     */
+    private $appUidGenerator;
+
+    public function __construct(UrlGeneratorInterface $router, AppUidGeneratorInterface $appUidGenerator)
     {
         $this->router = $router;
+        $this->appUidGenerator = $appUidGenerator;
     }
 
     /**
@@ -51,6 +58,15 @@ class RegistrationSuccessEventListener implements EventSubscriberInterface
 
     public function onRegistrationSuccess(FormEvent $event)
     {
+        /** @var $user \AppBundle\Entity\User */
+        $user = $event->getForm()->getData();
+
+        $appUid = $this->appUidGenerator->generateUid($user);
+        
+        $user->setAppUid($appUid);
+
+        // Generate AppUid for this User
+
         $url = $this->router->generate('dashboard');
 
         $event->setResponse(new RedirectResponse($url));
