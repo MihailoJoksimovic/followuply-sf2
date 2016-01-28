@@ -77,6 +77,12 @@ class Scenario
         return $this->routes;
     }
 
+    public function addRoute(Route $route)
+    {
+        $route->setScenario($this);
+        $this->routes->add($route);
+    }
+
     /**
      * @param mixed $user
      */

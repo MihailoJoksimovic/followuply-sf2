@@ -25,28 +25,36 @@ class DashboardController extends Controller
     {
         $route1 = new RouteEntity();
         $route1->setUriPattern('http://followuply.com/a');
+        $route1->setPatternType(RouteEntity::ROUTE_TYPE_BEGINS_WITH); // Use this one by default for now
         $route1->setPosition(1);
 
         $route2 = new RouteEntity();
         $route2->setUriPattern('http://followuply.com/b');
+        $route2->setPatternType(RouteEntity::ROUTE_TYPE_BEGINS_WITH); // Use this one by default for now
         $route2->setPosition(2);
 
         /** @var $user User */
         $user = $this->getUser();
 
         $scenario = new Scenario();
-        $scenario->setAppUid($user->getAppUid());
-        $scenario->getRoutes()->add($route1);
-        $scenario->getRoutes()->add($route2);
+        $scenario->setUser($user);
+        $scenario->addRoute($route1);
+        $scenario->addRoute($route2);
 
         $form = $this->createForm(ScenarioType::class, $scenario);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // ... perform some action, such as saving the task to the database
+            $em = $this->getDoctrine()->getEntityManager();
 
-            return $this->redirectToRoute('task_success');
+            $em->persist($route1);
+            $em->persist($route2);
+            $em->persist($scenario);
+
+            $em->flush();
+
+            return $this->redirectToRoute('dashboard');
         }
 
         return $this->render('AppBundle:Dashboard:index.html.twig', array(
