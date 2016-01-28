@@ -27,6 +27,13 @@ class Scenario
     /** @ORM\Column(type="datetime",name="dt_added") **/
     protected $dtAdded;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @var User
+     */
+    protected $user;
+
     public function __construct()
     {
         $this->dtAdded = new \DateTime();
@@ -89,10 +96,27 @@ class Scenario
         return $this->routes;
     }
 
+    /**
+     * @param mixed $user
+     */
+    public function setUser(User $user)
+    {
+        $this->user = $user;
+    }
+
+    /**
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
     static public function loadValidatorMetadata(ClassMetadata $metadata)
     {
         $metadata->addPropertyConstraint('appUid', new Assert\NotNull());
         $metadata->addPropertyConstraint('timeframe', new Assert\NotNull());
+        $metadata->addPropertyConstraint('user', new Assert\NotNull());
     }
 
 

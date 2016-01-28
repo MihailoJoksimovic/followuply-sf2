@@ -12,6 +12,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Entity\UserRepository")
@@ -28,10 +29,16 @@ class User extends BaseUser
     /** @ORM\Column(type="string") */
     protected $appUid;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Scenario", mappedBy="user")
+     */
+    protected $scenarios;
+
     public function __construct()
     {
         parent::__construct();
         $this->dtAdded = new \DateTime();
+        $this->scenarios = new ArrayCollection();
     }
 
     /**
@@ -68,6 +75,20 @@ class User extends BaseUser
     public function getAppUid()
     {
         return $this->appUid;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getScenarios()
+    {
+        return $this->scenarios;
+    }
+
+    public function addScenario(Scenario $scenario)
+    {
+        $scenario->setUser($this);
+        $this->getScenarios()->add($scenario);
     }
 
 }
