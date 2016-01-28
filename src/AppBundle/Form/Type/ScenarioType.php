@@ -32,7 +32,6 @@ class ScenarioType extends AbstractType
             ->add('routes', CollectionType::class, array(
                 'entry_type' => RouteType::class
         ))
-            ->add('save', SubmitType::class)
         ;
     }
 

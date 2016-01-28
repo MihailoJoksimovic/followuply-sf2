@@ -46,24 +46,13 @@
                             {{ form_widget(form.routes[1].uriPattern) }}
                         </div>
 
+                        <br/>
 
-
-
-                        {#{{ form_widget(form.uriPattern) }}#}
-
-                        {#<h3>Routes</h3>#}
-                        {#<ul class="routes">#}
-                            {#&#123;&#35; iterate over each existing tag and render its only field: name &#35;&#125;#}
-                            {#{% for route in form.routes %}#}
-                                {#<li>#}
-                                    {#<div class="form-inline">#}
-                                        {#{{ form_label (route.uriPattern) }}#}
-                                        {##}
-                                    {#</div>#}
-
-                                {#</li>#}
-                            {#{% endfor %}#}
-                        {#</ul>#}
+                        <div>
+                            <button class="btn btn-lg btn-primary">
+                                Send him an email!
+                            </button>
+                        </div>
 
                     {{ form_end(form) }}
 
