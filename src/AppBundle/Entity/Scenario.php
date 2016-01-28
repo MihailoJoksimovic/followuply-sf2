@@ -15,9 +15,6 @@ class Scenario
     /** @ORM\Id @ORM\Column(type="integer") @ORM\GeneratedValue **/
     protected $id;
 
-    /** @ORM\Column(type="string",name="app_uid", unique=true) **/
-    protected $appUid;
-
     /** @ORM\Column(type="smallint") */
     protected $timeframe;
 
@@ -46,22 +43,6 @@ class Scenario
     public function getDtAdded()
     {
         return $this->dtAdded;
-    }
-
-    /**
-     * @param mixed $appUid
-     */
-    public function setAppUid($appUid)
-    {
-        $this->appUid = $appUid;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAppUid()
-    {
-        return $this->appUid;
     }
 
     /**
@@ -114,7 +95,6 @@ class Scenario
 
     static public function loadValidatorMetadata(ClassMetadata $metadata)
     {
-        $metadata->addPropertyConstraint('appUid', new Assert\NotNull());
         $metadata->addPropertyConstraint('timeframe', new Assert\NotNull());
         $metadata->addPropertyConstraint('user', new Assert\NotNull());
     }
