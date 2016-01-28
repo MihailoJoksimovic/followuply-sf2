@@ -17,7 +17,7 @@ services:
             - [connect, ['127.0.0.1', '6379']]
 
    app.form.registration:
-       class: AppBundle\Form\RegistrationType
+       class: AppBundle\Form\Type\RegistrationType
        tags:
             - { name: form.type, alias: app_user_registration }
 

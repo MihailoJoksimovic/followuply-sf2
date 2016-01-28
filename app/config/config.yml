@@ -80,7 +80,7 @@ fos_user:
     user_class: AppBundle\Entity\User
     registration:
         form:
-            type: AppBundle\Form\RegistrationType
+            type: AppBundle\Form\Type\RegistrationType
 
 old_sound_rabbit_mq:
     connections:
