@@ -54,11 +54,26 @@ class DashboardController extends Controller
 
             $em->flush();
 
-            return $this->redirectToRoute('dashboard');
+            return $this->redirectToRoute('dashboard_scenarios_list');
         }
 
         return $this->render('AppBundle:Dashboard:index.html.twig', array(
             'form' => $form->createView()
+        ));
+    }
+
+    /**
+     * @Route("/scenarios", name="dashboard_scenarios_list")
+     */
+    public function listScenariosAction()
+    {
+        /** @var $user User */
+        $user = $this->getUser();
+
+        $scenarios = $user->getScenarios();
+
+        return $this->render('AppBundle:Dashboard:scenarios.html.twig', array(
+            'scenarios' => $scenarios
         ));
     }
 }

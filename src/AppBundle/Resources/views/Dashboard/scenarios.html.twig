@@ -1,0 +1,53 @@
+{% extends "AppBundle:Dashboard:layout.html.twig" %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">
+                    Scenarios
+                </h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Route A</th>
+                            <th>Route B</th>
+                            <th>Time</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for scenario in scenarios %}
+                            <tr>
+                                <td>
+                                    {{ scenario.getId() }}
+                                </td>
+                                <td>
+                                    {{ scenario.getFirstRoute().getUriPattern() }}
+                                </td>
+                                <td>
+                                    {{ scenario.getLastRoute().getUriPattern() }}
+                                </td>
+                                <td>
+                                    {{ scenario.getTimeframe() }} minutes
+                                </td>
+                                <td>
+
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+
