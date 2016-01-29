@@ -1,0 +1,19 @@
+/** Created by Mixa to override some of the Default CSS settings */
+
+html {
+    height: 100%;
+    overflow-y: hidden;
+}
+
+body {
+    height: 100%;
+    overflow-y: scroll;
+}
+
+#wrapper {
+    height: 100%;
+}
+
+#page-wrapper {
+    min-height: 100%;
+}
