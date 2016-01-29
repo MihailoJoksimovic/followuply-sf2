@@ -77,6 +77,26 @@ class Scenario
         return $this->routes;
     }
 
+    public function getFirstRoute()
+    {
+        foreach ($this->getRoutes() as $route) {
+            if ($route->getPosition() == 0) {
+                return $route;
+            }
+        }
+    }
+
+    public function getLastRoute()
+    {
+        // For now, I'll consider that we only have 2 routes
+        foreach ($this->getRoutes() as $route) {
+            if ($route->getPosition() == 1) {
+                return $route;
+            }
+        }
+
+    }
+
     public function addRoute(Route $route)
     {
         $route->setScenario($this);

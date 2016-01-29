@@ -26,12 +26,12 @@ class DashboardController extends Controller
         $route1 = new RouteEntity();
         $route1->setUriPattern('http://followuply.com/a');
         $route1->setPatternType(RouteEntity::ROUTE_TYPE_BEGINS_WITH); // Use this one by default for now
-        $route1->setPosition(1);
+        $route1->setPosition(0);
 
         $route2 = new RouteEntity();
         $route2->setUriPattern('http://followuply.com/b');
         $route2->setPatternType(RouteEntity::ROUTE_TYPE_BEGINS_WITH); // Use this one by default for now
-        $route2->setPosition(2);
+        $route2->setPosition(1);
 
         /** @var $user User */
         $user = $this->getUser();
