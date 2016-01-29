@@ -25,56 +25,15 @@
                     <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i>Add new Scenario</h3>
                 </div>
                 <div class="panel-body">
-                    {{ form_start(form) }}
-                        {{ form_errors(form) }}
-
-                        <div>
-                            {{ form_label(form.routes[0].uriPattern, 'If user visits') }}
-                            {{ form_errors(form.routes[0].uriPattern) }}
-                            {{ form_widget(form.routes[0].uriPattern) }}
-                        </div>
-
-                        <div>
-                            {{ form_label(form.timeframe, '... but after ...') }}
-                            {{ form_errors(form.timeframe) }}
-                            {{ form_widget(form.timeframe) }}
-                        </div>
-
-                        <div>
-                            {{ form_label(form.routes[1].uriPattern, '... doesn\'t reach') }}
-                            {{ form_errors(form.routes[1].uriPattern) }}
-                            {{ form_widget(form.routes[1].uriPattern) }}
-                        </div>
-
-                        <br/>
-
-                        <div>
-                            <button class="btn btn-lg btn-primary">
-                                Send him an email!
-                            </button>
-                        </div>
-
-                    {{ form_end(form) }}
-
-                    {#<form>#}
-                        {#<div class="form-group">#}
-                            {#<label for="exampleInputEmail1">If customer visits ...</label>#}
-                            {#<input type="text" class="form-control" id="inputUrlA" name="url_a" placeholder="e.g. http://followuply.com/upgrade">#}
-                        {#</div>#}
-                        {#<div class="form-group">#}
-                            {#<label for="exampleInputPassword1">... but after ...</label>#}
-                            {#<select class="form-control" name="timeframe">#}
-                                {#<option value="10">10 minutes</option>#}
-                                {#<option value="20">20 minutes</option>#}
-                                {#<option value="60">60 minutes</option>#}
-                            {#</select>#}
-                        {#</div>#}
-                        {#<div class="form-group">#}
-                            {#<label for="exampleInputPassword1">... doesn't reach ...</label>#}
-                            {#<input type="text" class="form-control" id="inputUrlB" name="url_b" placeholder="e.g. http://followuply.com/thank-you">#}
-                        {#</div>#}
-                        {#<button type="submit" class="btn btn-default">Send him an email!</button>#}
-                    {#</form>#}
+                    {% embed "AppBundle:Dashboard:Forms/scenario.html.twig" %}
+                        {% block scenario_form_btns %}
+                            <div>
+                                <button class="btn btn-lg btn-primary">
+                                    Add Scenario!
+                                </button>
+                            </div>
+                        {% endblock %}
+                    {% endembed %}
                 </div>
             </div>
         </div>

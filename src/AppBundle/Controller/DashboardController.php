@@ -54,6 +54,11 @@ class DashboardController extends Controller
 
             $em->flush();
 
+            $this->addFlash(
+                'info',
+                'New scenario has been added!'
+            );
+
             return $this->redirectToRoute('dashboard_scenarios_list');
         }
 
@@ -76,4 +81,33 @@ class DashboardController extends Controller
             'scenarios' => $scenarios
         ));
     }
+
+    /**
+     * @Route("/scenario/edit/{id}", name="dashboard_scenario_edit")
+     */
+    public function editScenarioAction(Scenario $scenario, Request $request)
+    {
+        $this->denyAccessUnlessGranted('edit', $scenario);
+
+        $form = $this->createForm(ScenarioType::class, $scenario);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash(
+                'info',
+                'Your changes have been saved!'
+            );
+
+            return $this->redirectToRoute('dashboard_scenarios_list');
+        }
+
+        return $this->render('AppBundle:Dashboard:edit-scenario.html.twig', array(
+            'form'      => $form->createView()
+        ));
+    }
 }
+
+

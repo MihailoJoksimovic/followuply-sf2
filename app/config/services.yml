@@ -27,5 +27,13 @@ services:
        tags:
            - { name: kernel.event_subscriber }
 
+   app.scenario_voter:
+       class: AppBundle\Security\ScenarioVoter
+       arguments: ['@security.access.decision_manager']
+       tags:
+           - { name: security.voter }
+       # small performance boost
+       public: false
+
    util.app_uid_generator:
        class: AppBundle\Util\AppUidGenerator

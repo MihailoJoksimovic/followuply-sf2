@@ -1,0 +1,34 @@
+{% block scenario_form %}
+    {{ form_start(form) }}
+                            {{ form_errors(form) }}
+
+    <div>
+        {{ form_label(form.routes[0].uriPattern, 'If user visits') }}
+        {{ form_errors(form.routes[0].uriPattern) }}
+        {{ form_widget(form.routes[0].uriPattern) }}
+    </div>
+
+    <div>
+        {{ form_label(form.timeframe, '... but after ...') }}
+        {{ form_errors(form.timeframe) }}
+        {{ form_widget(form.timeframe) }}
+    </div>
+
+    <div>
+        {{ form_label(form.routes[1].uriPattern, '... doesn\'t reach') }}
+        {{ form_errors(form.routes[1].uriPattern) }}
+        {{ form_widget(form.routes[1].uriPattern) }}
+    </div>
+
+    <br/>
+
+    {% block scenario_form_btns %}
+    <div>
+        <button class="btn btn-lg btn-primary">
+            Save changes
+        </button>
+    </div>
+    {% endblock %}
+
+    {{ form_end(form) }}
+{% endblock %}

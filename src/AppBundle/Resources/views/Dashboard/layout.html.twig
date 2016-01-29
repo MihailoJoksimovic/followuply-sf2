@@ -152,6 +152,14 @@
             </nav>
 
             <div id="page-wrapper">
+                {% block flash_messages %}
+                    {% for flash_message in app.session.flashbag.get('info') %}
+                        <div class="alert alert-info">
+                            {{ flash_message }}
+                        </div>
+                    {% endfor %}
+                {% endblock %}
+
                 {% block content %}{% endblock %}
             </div>
         </div>

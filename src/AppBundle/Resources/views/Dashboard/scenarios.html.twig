@@ -39,7 +39,9 @@
                                     {{ scenario.getTimeframe() }} minutes
                                 </td>
                                 <td>
-
+                                    <a href="{{ url('dashboard_scenario_edit', { 'id' : scenario.getId() }) }}">
+                                        Modify
+                                    </a>
                                 </td>
                             </tr>
                         {% endfor %}
