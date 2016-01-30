@@ -6,6 +6,7 @@ parameters:
 services:
    worker.event.consumer:
        class: AppBundle\Worker\EventConsumer
+       arguments: ['@matcher.route', '@repository.user', '@doctrine.orm.entity_manager']
 
    matcher.route:
        class: AppBundle\Matcher\Route

@@ -23,6 +23,10 @@ class RepositoryServiceCreationCompilerPass implements CompilerPassInterface
         $definitions = array();
 
         foreach ($meta as $singleEntityData) {
+            if (substr($singleEntityData->getName(), 0, 9) !== 'AppBundle') {
+                continue;
+            }
+
             $serviceId = $this->getServiceId($singleEntityData);
             $definition = new Definition(
                 $this->getRepositoryClass($singleEntityData),

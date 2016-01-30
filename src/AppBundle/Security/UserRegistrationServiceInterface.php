@@ -4,7 +4,7 @@
  */
 
 namespace AppBundle\Security;
-use Followuply\Entity\User;
+use AppBundle\Entity\User;
 
 
 /**

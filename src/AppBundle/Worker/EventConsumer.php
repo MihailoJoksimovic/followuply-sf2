@@ -2,13 +2,33 @@
 
 namespace AppBundle\Worker;
 
+use AppBundle\Matcher\Route as RouteMatcher;
 use AppBundle\Model\Event;
+use AppBundle\Entity\Event as EventEntity;
+use AppBundle\Repository\UserRepository;
+use Doctrine\ORM\EntityManager;
 use OldSound\RabbitMqBundle\RabbitMq\ConsumerInterface;
 use PhpAmqpLib\Message\AMQPMessage;
+use DateTime;
 
 class EventConsumer implements ConsumerInterface
 {
+    /** @var RouteMatcher */
     protected $routeMatcher;
+
+    /** @var UserRepository */
+    protected $userRepository;
+
+    /** @var EntityManager */
+    protected $entityManager;
+
+    public function __construct(
+        RouteMatcher $routeMatcher, UserRepository $userRepository, EntityManager $entityManager
+    ) {
+        $this->routeMatcher = $routeMatcher;
+        $this->userRepository = $userRepository;
+        $this->entityManager = $entityManager;
+    }
 
     public function execute(AMQPMessage $message)
     {
@@ -19,6 +39,7 @@ class EventConsumer implements ConsumerInterface
         }
 
         $this->logToPersistentStorage($event);
+        return true;
 
         if (!$this->routeMatches()) {
             // discard this
@@ -28,7 +49,18 @@ class EventConsumer implements ConsumerInterface
 
     protected function logToPersistentStorage(Event $event)
     {
+        $user = $this->userRepository->findOneBy(array('appUid' => $event->getAppId()));
 
+        $created = new DateTime();
+        $created->setTimestamp($event->getTimestamp());
+
+        if (!$user) {
+            return;
+        }
+
+        $entity = new EventEntity($user, $created, $event->getUri(), $event->getVisitorUid(), $event->getEmail());
+        $this->entityManager->persist($entity);
+        $this->entityManager->flush();
     }
 
     protected function routeMatches()

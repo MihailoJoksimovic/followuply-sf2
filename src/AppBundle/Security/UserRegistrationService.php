@@ -5,8 +5,8 @@
 
 namespace AppBundle\Security;
 use Doctrine\ORM\EntityManager;
-use Followuply\Entity\User;
-use Followuply\Entity\UserRepository;
+use AppBundle\Entity\User;
+use AppBundle\Repository\UserRepository;
 use Monolog\Logger;
 use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
@@ -19,7 +19,7 @@ use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 class UserRegistrationService implements UserRegistrationServiceInterface
 {
     /**
-     * @var \Followuply\Entity\UserRepository
+     * @var \AppBundle\Entity\UserRepository
      */
     private $userRepository;
 

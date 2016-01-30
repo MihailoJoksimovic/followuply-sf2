@@ -3,7 +3,7 @@
  * @author Mihailo Joksimovic <tinzey@gmail.com>
  */
 
-namespace AppBundle\Entity;
+namespace AppBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 

@@ -5,17 +5,13 @@
 
 namespace AppBundle\Entity;
 
-use Symfony\Component\BrowserKit\Request;
-use Symfony\Component\Security\Core\Role\Role;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @ORM\Entity(repositoryClass="AppBundle\Entity\UserRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  * @ORM\Table(name="`user`")
  */
 class User extends BaseUser

@@ -8,15 +8,15 @@ class Event
 {
     const REDIS_KEY = 'events';
 
-    public $visitorUid;
+    protected $visitorUid;
 
-    public $timestamp;
+    protected $timestamp;
 
-    public $appId;
+    protected $appId;
 
-    public $uri;
+    protected $uri;
 
-    public $email;
+    protected $email;
 
     private function __construct()
     {
@@ -46,5 +46,45 @@ class Event
         $event->email = $eventData->email;
 
         return $event;
+    }
+
+    /**
+     * @return string
+     */
+    public function getVisitorUid()
+    {
+        return $this->visitorUid;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTimestamp()
+    {
+        return $this->timestamp;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAppId()
+    {
+        return $this->appId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUri()
+    {
+        return $this->uri;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
     }
 }

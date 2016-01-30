@@ -44,13 +44,12 @@ class UserProvider implements UserProviderInterface
      */
     public function loadUserByUsername($username)
     {
-
-        $repo = $this->em->getRepository('Followuply\Entity\User');
+        $repo = $this->em->getRepository('AppBundle\Entity\User');
         $user = $repo->findOneBy(array(
             'email' => $username
         ));
 
-        if (!$user instanceof \Followuply\Entity\User) {
+        if (!$user instanceof \AppBundle\Entity\User) {
             throw new UsernameNotFoundException(sprintf('Username "%s" does not exist.', $username));
         }
 
@@ -73,7 +72,7 @@ class UserProvider implements UserProviderInterface
      */
     public function refreshUser(UserInterface $user)
     {
-        if (!$user instanceof \Followuply\Entity\User) {
+        if (!$user instanceof \AppBundle\Entity\User) {
             throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', get_class($user)));
         }
 
@@ -89,7 +88,7 @@ class UserProvider implements UserProviderInterface
      */
     public function supportsClass($class)
     {
-        return $class === 'Followuply\Entity\User';
+        return $class === 'AppBundle\Entity\User';
     }
 
 }
