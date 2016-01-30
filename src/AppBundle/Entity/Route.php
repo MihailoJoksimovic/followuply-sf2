@@ -134,5 +134,30 @@ class Route
         $metadata->addPropertyConstraint('position', new Assert\NotNull());
     }
 
+    public function match($uri)
+    {
+        if ($this->isMatchedFromBeginning()) {
+            return substr($uri, 0, strlen($this->uriPattern)) === $this->uriPattern;
+        } elseif ($this->isMatchedFully()) {
+            return $uri === $this->uriPattern;
+        } else {
+            return (bool) preg_match($this->uriPattern, $uri);
+        }
+    }
+
+    public function isMatchedFromBeginning()
+    {
+        return $this->patternType === self::ROUTE_TYPE_BEGINS_WITH;
+    }
+
+    public function isMatchedFully()
+    {
+        return $this->patternType === self::ROUTE_TYPE_EQUALS;
+    }
+
+    public function isMatchedByRegex()
+    {
+        return $this->patternType === self::ROUTE_TYPE_REGEX;
+    }
 }
 

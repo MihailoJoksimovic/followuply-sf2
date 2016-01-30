@@ -39,32 +39,23 @@ class EventConsumer implements ConsumerInterface
         }
 
         $this->logToPersistentStorage($event);
-        return true;
 
-        if (!$this->routeMatches()) {
-            // discard this
-            return;
-        }
+        $matchedRoutes = $this->routeMatcher->match($event);
     }
 
     protected function logToPersistentStorage(Event $event)
     {
         $user = $this->userRepository->findOneBy(array('appUid' => $event->getAppId()));
 
-        $created = new DateTime();
-        $created->setTimestamp($event->getTimestamp());
-
         if (!$user) {
             return;
         }
 
+        $created = new DateTime();
+        $created->setTimestamp($event->getTimestamp());
+
         $entity = new EventEntity($user, $created, $event->getUri(), $event->getVisitorUid(), $event->getEmail());
         $this->entityManager->persist($entity);
         $this->entityManager->flush();
-    }
-
-    protected function routeMatches()
-    {
-
     }
 }
