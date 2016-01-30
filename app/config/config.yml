@@ -116,3 +116,12 @@ assetic:
     use_controller: '%kernel.debug%'
     filters:
         cssrewrite: ~
+
+doctrine_mongodb:
+    connections:
+        default:
+            server: mongodb://localhost:27017
+    default_database: followuply
+    document_managers:
+        default:
+            auto_mapping: true

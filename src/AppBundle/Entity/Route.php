@@ -64,6 +64,14 @@ class Route
     }
 
     /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
      * @param mixed $position
      */
     public function setPosition($position)
@@ -158,6 +166,11 @@ class Route
     public function isMatchedByRegex()
     {
         return $this->patternType === self::ROUTE_TYPE_REGEX;
+    }
+
+    public function isFirst()
+    {
+        return $this->position === 1;
     }
 }
 

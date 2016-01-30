@@ -36,8 +36,17 @@ services:
        # small performance boost
        public: false
 
+   app.scenario.persister:
+       class: AppBundle\Document\UserScenarioPersister
+       arguments: ['@doctrine_mongodb']
+       tags:
+           - { name: security.voter }
+       # small performance boost
+       public: false
+
    app.listener.route_matched:
        class: AppBundle\EventListener\RouteMatchedListener
+       arguments: ['@app.scenario.persister']
        tags:
            - { name: kernel.event_subscriber }
 

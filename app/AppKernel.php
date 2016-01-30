@@ -25,6 +25,7 @@ class AppKernel extends Kernel
             new AppBundle\AppBundle($this),
             new OldSound\RabbitMqBundle\OldSoundRabbitMqBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
+            new Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

@@ -53,7 +53,7 @@ class EventConsumer implements ConsumerInterface
 
         // dispatch only if something is matched
         if (count($matchedRoutes)) {
-            $this->eventDispatcher->dispatch(RouteMatchedEvent::NAME, new RouteMatchedEvent($matchedRoutes));
+            $this->eventDispatcher->dispatch(RouteMatchedEvent::NAME, new RouteMatchedEvent($matchedRoutes, $event));
         }
     }
 
