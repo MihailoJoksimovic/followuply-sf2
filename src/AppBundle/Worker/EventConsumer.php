@@ -2,6 +2,7 @@
 
 namespace AppBundle\Worker;
 
+use AppBundle\Event\RouteMatchedEvent;
 use AppBundle\Matcher\Route as RouteMatcher;
 use AppBundle\Model\Event;
 use AppBundle\Entity\Event as EventEntity;
@@ -10,6 +11,7 @@ use Doctrine\ORM\EntityManager;
 use OldSound\RabbitMqBundle\RabbitMq\ConsumerInterface;
 use PhpAmqpLib\Message\AMQPMessage;
 use DateTime;
+use Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcher;
 
 class EventConsumer implements ConsumerInterface
 {
@@ -22,12 +24,19 @@ class EventConsumer implements ConsumerInterface
     /** @var EntityManager */
     protected $entityManager;
 
+    /** @var TraceableEventDispatcher */
+    protected $eventDispatcher;
+
     public function __construct(
-        RouteMatcher $routeMatcher, UserRepository $userRepository, EntityManager $entityManager
+        RouteMatcher $routeMatcher,
+        UserRepository $userRepository,
+        EntityManager $entityManager,
+        TraceableEventDispatcher $eventDispatcher
     ) {
         $this->routeMatcher = $routeMatcher;
         $this->userRepository = $userRepository;
         $this->entityManager = $entityManager;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     public function execute(AMQPMessage $message)
@@ -41,6 +50,11 @@ class EventConsumer implements ConsumerInterface
         $this->logToPersistentStorage($event);
 
         $matchedRoutes = $this->routeMatcher->match($event);
+
+        // dispatch only if something is matched
+        if (count($matchedRoutes)) {
+            $this->eventDispatcher->dispatch(RouteMatchedEvent::NAME, new RouteMatchedEvent($matchedRoutes));
+        }
     }
 
     protected function logToPersistentStorage(Event $event)

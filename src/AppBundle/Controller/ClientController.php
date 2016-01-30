@@ -18,6 +18,6 @@ class ClientController extends Controller
         $event = Event::fromRequest($request);
         $this->get('old_sound_rabbit_mq.event_producer')->publish(serialize($event));
 
-        return new Response();
+        return new Response(urldecode($request->attributes->get('uri')));
     }
 }

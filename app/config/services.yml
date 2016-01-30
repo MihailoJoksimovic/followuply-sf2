@@ -6,11 +6,11 @@ parameters:
 services:
    worker.event.consumer:
        class: AppBundle\Worker\EventConsumer
-       arguments: ['@matcher.route', '@repository.user', '@doctrine.orm.entity_manager']
+       arguments: ['@matcher.route', '@repository.user', '@doctrine.orm.entity_manager', '@event_dispatcher']
 
    matcher.route:
        class: AppBundle\Matcher\Route
-       arguments: ['@repository.scenario']
+       arguments: ['@repository.scenario', '@repository.user']
 
    redis.client:
        class: Redis
@@ -20,7 +20,7 @@ services:
    app.form.registration:
        class: AppBundle\Form\Type\RegistrationType
        tags:
-            - { name: form.type, alias: app_user_registration }
+           - { name: form.type, alias: app_user_registration }
 
    app.registration_success:
        class: AppBundle\EventListener\RegistrationSuccessEventListener
@@ -35,6 +35,11 @@ services:
            - { name: security.voter }
        # small performance boost
        public: false
+
+   app.listener.route_matched:
+       class: AppBundle\EventListener\RouteMatchedListener
+       tags:
+           - { name: kernel.event_subscriber }
 
    util.app_uid_generator:
        class: AppBundle\Util\AppUidGenerator
