@@ -8,6 +8,10 @@ services:
        class: AppBundle\Worker\EventConsumer
        arguments: ['@matcher.route', '@repository.user', '@doctrine.orm.entity_manager', '@event_dispatcher']
 
+   worker.email.consumer:
+       class: AppBundle\Worker\EmailConsumer
+       arguments: ['@redis.client', '@mailer']
+
    matcher.route:
        class: AppBundle\Matcher\Route
        arguments: ['@repository.scenario', '@repository.user']
@@ -49,6 +53,11 @@ services:
        arguments: ['@app.scenario.persister']
        tags:
            - { name: kernel.event_subscriber }
+
+   app.email.queuer:
+       class: AppBundle\Email\Queuer
+       arguments: ['@old_sound_rabbit_mq.email_producer', '@redis.client']
+
 
    util.app_uid_generator:
        class: AppBundle\Util\AppUidGenerator
