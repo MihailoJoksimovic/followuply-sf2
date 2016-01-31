@@ -11,13 +11,26 @@ use Symfony\Component\HttpFoundation\Response;
 class ClientController extends Controller
 {
     /**
-     * @Route("/api/event/submit/{visitorUid}/{email}/{appId}/{uri}", name="client_end_point")
+     * @Route("/api/event/submit", name="client_end_point")
      */
     public function submitAction(Request $request)
     {
+        if (!$this->isRequestValid($request)) {
+            return new Response();
+        }
+
         $event = Event::fromRequest($request);
         $this->get('old_sound_rabbit_mq.event_producer')->publish(serialize($event));
 
         return new Response(urldecode($request->attributes->get('uri')));
+    }
+
+    protected function isRequestValid(Request $request)
+    {
+        return
+            $request->query->has('visitorUid') &&
+            $request->query->has('email') &&
+            $request->query->has('appId') &&
+            $request->query->has('uri');
     }
 }

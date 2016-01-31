@@ -27,10 +27,10 @@ class Event
     {
         $event = new self();
 
-        $event->visitorUid = $request->attributes->get('visitorUid');
-        $event->appId = $request->attributes->get('appId');
-        $event->uri = urldecode($request->attributes->get('uri'));
-        $event->email = urldecode($request->attributes->get('email'));
+        $event->visitorUid = $request->query->get('visitorUid');
+        $event->appId = $request->query->get('appId');
+        $event->uri = urldecode($request->query->get('uri'));
+        $event->email = urldecode($request->query->get('email'));
 
         return $event;
     }
