@@ -12,9 +12,9 @@ class UserScenarioPersister
     /** @var DocumentManager */
     protected $mongoEntityManager;
 
-    public function __construct($mongoDb)
+    public function __construct(DocumentManager $mongoDb)
     {
-        $this->mongoEntityManager = $mongoDb->getManager();
+        $this->mongoEntityManager = $mongoDb;
     }
 
     public function processRoute(RouteEntity $route, Event $event)
@@ -45,6 +45,7 @@ class UserScenarioPersister
         $userScenarioDocument->setHash($hash);
         $userScenarioDocument->setDeadline($deadline->getTimestamp());
         $userScenarioDocument->setEmail($event->getEmail());
+        $userScenarioDocument->setScenarioId($route->getScenario()->getId());
         $userScenarioDocument->addRoute($routeDocument);
 
         $this->mongoEntityManager->persist($userScenarioDocument);

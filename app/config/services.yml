@@ -42,7 +42,7 @@ services:
 
    app.scenario.persister:
        class: AppBundle\Document\UserScenarioPersister
-       arguments: ['@doctrine_mongodb']
+       arguments: ['@doctrine.odm.mongodb.document_manager']
        # small performance boost
        public: false
 
@@ -59,3 +59,8 @@ services:
 
    util.app_uid_generator:
        class: AppBundle\Util\AppUidGenerator
+
+   worker.user_scenario.consumer:
+        class: AppBundle\Worker\UserScenario
+        tags:
+            -  { name: console.command }
