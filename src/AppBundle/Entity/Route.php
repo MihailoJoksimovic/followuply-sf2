@@ -170,7 +170,7 @@ class Route
 
     public function isFirst()
     {
-        return $this->position === 1;
+        return $this->position === 0;
     }
 }
 

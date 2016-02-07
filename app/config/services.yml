@@ -43,8 +43,6 @@ services:
    app.scenario.persister:
        class: AppBundle\Document\UserScenarioPersister
        arguments: ['@doctrine_mongodb']
-       tags:
-           - { name: security.voter }
        # small performance boost
        public: false
 
