@@ -2,6 +2,7 @@
 
 namespace AppBundle\Worker;
 
+use AppBundle\Model\EmailData;
 use OldSound\RabbitMqBundle\RabbitMq\ConsumerInterface;
 use PhpAmqpLib\Message\AMQPMessage;
 use Redis;
@@ -22,31 +23,25 @@ class EmailConsumer implements ConsumerInterface
 
     public function execute(AMQPMessage $message)
     {
-//        $message = Swift_Message::newInstance()
-//            ->setSubject('Hello Email')
-//            ->setFrom('noreply@tralala.com')
-//            ->setTo('followuply@mailinator.com')
-//            ->setBody(
-//                'test email',
-//                'text/html'
-//            )
-//        ;
-//        $this->mailer->send($message);
-    }
+        /** @var EmailData $emailData */
+        $emailData = unserialize($message->body);
 
-    protected function log()
-    {
+        $this->logToRedis($emailData);
+//        $this->logToMysql();
+
+        $message = Swift_Message::newInstance()
+            ->setSubject($emailData->getEmailSubject())
+            ->setFrom('noreply@tralala.com')
+            ->setTo('followuply@mailinator.com')
+//            ->setTo($emailData->getEmail())
+            ->setBody($emailData->getEmailTemplate(), 'text/html');
+
+        $this->mailer->send($message);
     }
 
     // used for quick search if user received email in the last 24h
-    protected function logToRedis()
+    protected function logToRedis(EmailData $emailData)
     {
-        $this->redis->setex(sprintf('%s:%s', $appId, $email), 24 * 60 * 60, true);
-    }
-
-    // persisted. used for stats
-    protected function logToMysql()
-    {
-
+        $this->redis->setex(sprintf('%s:%s', $emailData->getAppUid(), $emailData->getEmail()), 24 * 60 * 60, true);
     }
 }

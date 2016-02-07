@@ -21,6 +21,9 @@ class Scenario
     /** @ORM\OneToMany(targetEntity="Route", mappedBy="scenario") */
     protected $routes;
 
+    /** @ORM\OneToMany(targetEntity="EmailTemplate", mappedBy="scenario") */
+    protected $emailTemplates;
+
     /** @ORM\Column(type="datetime",name="dt_added") **/
     protected $dtAdded;
 
@@ -126,4 +129,4 @@ class Scenario
     }
 
 
-} 
+}

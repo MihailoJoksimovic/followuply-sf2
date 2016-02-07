@@ -5,7 +5,7 @@ namespace AppBundle\Document;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
- * @MongoDB\Document
+ * @MongoDB\Document(repositoryClass="AppBundle\Repository\UserScenarioRepository")
  */
 class UserScenario
 {
@@ -23,6 +23,11 @@ class UserScenario
      * @MongoDB\Int
      */
     protected $deadline;
+
+    /**
+     * @MongoDB\Int
+     */
+    protected $scenarioId;
 
     /**
      * @MongoDB\String
@@ -97,10 +102,34 @@ class UserScenario
     }
 
     /**
+     * @return int
+     */
+    public function getScenarioId()
+    {
+        return $this->scenarioId;
+    }
+
+    /**
+     * @param int $scenarioId
+     */
+    public function setScenarioId($scenarioId)
+    {
+        $this->scenarioId = $scenarioId;
+    }
+
+    /**
      * @param Route $route
      */
     public function addRoute(Route $route)
     {
         $this->routes[] = $route;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDone()
+    {
+        return count($this->getRoutes()) === 2; // until we add more routes
     }
 }
