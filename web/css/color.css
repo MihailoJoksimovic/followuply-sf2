@@ -20,12 +20,22 @@
 }
 .red,
 .red:after,
-.red:before,
+.red:before{
+	background:#e2403b;
+}
+.green,
+.green:after,
+.green:before,
 .featured-offer:before,
 .featured-offer:after,
 .offer:before,
 .offer:after{
-	background:#e2403b;
+	background:#61c368;
+	color: #fff;
+}
+.button.green:hover{
+	background:#54b65b;
+	color: #fff;
 }
 .button.red:hover{
 	background:#D7312D;
@@ -35,13 +45,14 @@
 }
 
 .orange{
-	color:#313131;
+	color:#fff;
 }
 .orange{
-	background:#fdb902;
+	background:#e7981e;
 }
 .button.orange:hover{
-	background:#F0A602;
+	background:#db8c12;
+	color: #fff;
 }
 .cta-area h1{
 	color:#38bfff;
